@@ -6,6 +6,7 @@ public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private Cube _cubePrefab;
     [SerializeField] private GameObject _spawnPoint;
+
     private Cube _spawnedCube;
     private int GeneratedColor;
 
