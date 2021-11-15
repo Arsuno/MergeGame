@@ -12,44 +12,37 @@ public enum CubeColor
 
 public class Cube : MonoBehaviour
 {
-    public CubeColor _cubeColor;
+    public CubeColor CubeColor { get; private set; }
 
-    [SerializeField] private Material _objectMaterial;
+    [SerializeField] private Renderer _renderer;
+
+    private Dictionary<CubeColor, Color> _colors = new Dictionary<CubeColor, Color>
+    {
+        {CubeColor.Red, Color.red },
+        {CubeColor.Green, Color.green },
+        {CubeColor.Blue, Color.blue },
+        {CubeColor.Yellow, Color.yellow },
+    };
 
     public void Initialize(CubeColor cubeColor)
     {
-        _cubeColor = cubeColor;
-        SetMaterialColor(_cubeColor);
+        CubeColor = cubeColor;
+        SetMaterialColor(CubeColor);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out Cube cube) == true)
         {
-            if (_objectMaterial.color == cube._objectMaterial.color)
+            if (CubeColor == cube.CubeColor)
             {
                 Destroy(gameObject);
             }
         }
     }
 
-    private uint SetMaterialColor(CubeColor color)
+    private void SetMaterialColor(CubeColor color)
     {
-        switch (color)
-        {
-            case CubeColor.Red: _objectMaterial.color = Color.red; break;
-            case CubeColor.Green: _objectMaterial.color = Color.green; break;
-            case CubeColor.Blue: _objectMaterial.color = Color.blue; break;
-            case CubeColor.Yellow: _objectMaterial.color = Color.yellow; break;
-        }
-        return 0;
+        _renderer.material.color = _colors[color];
     }
-
-    
-
-
-
-
-
-
 }

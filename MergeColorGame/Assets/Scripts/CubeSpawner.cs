@@ -7,15 +7,12 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField] private Cube _cubePrefab;
     [SerializeField] private GameObject _spawnPoint;
 
-    private Cube _spawnedCube;
-    private int GeneratedColor;
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) == true)
         {
-            _cubePrefab.Initialize(GenerateRandomColor());
-            _spawnedCube = Instantiate(_cubePrefab, _spawnPoint.transform.position, Quaternion.identity); 
+            Cube cube = Instantiate(_cubePrefab, _spawnPoint.transform.position, Quaternion.identity); 
+            cube.Initialize(GenerateRandomColor());
         }
     }
 
