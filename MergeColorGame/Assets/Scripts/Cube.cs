@@ -14,7 +14,13 @@ public class Cube : MonoBehaviour
 {
     public CubeColor CubeColor { get; private set; }
 
+    [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private Renderer _renderer;
+
+    private void Awake()
+    {
+        _rigidBody.isKinematic = true;    
+    }
 
     private Dictionary<CubeColor, Color> _colors = new Dictionary<CubeColor, Color>
     {
@@ -45,4 +51,10 @@ public class Cube : MonoBehaviour
     {
         _renderer.material.color = _colors[color];
     }
+
+    public void Fall()
+    {
+        _rigidBody.isKinematic = false;
+    }
+
 }

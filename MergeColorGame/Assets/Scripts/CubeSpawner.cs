@@ -5,15 +5,14 @@ using UnityEngine;
 public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private Cube _cubePrefab;
-    [SerializeField] private GameObject _spawnPoint;
+    [SerializeField] private Transform _spawnPoint;
 
-    private void Update()
+    public Cube SpawnCube()
     {
-        if (Input.GetMouseButtonDown(0) == true)
-        {
-            Cube cube = Instantiate(_cubePrefab, _spawnPoint.transform.position, Quaternion.identity); 
-            cube.Initialize(GenerateRandomColor());
-        }
+        Cube cube = Instantiate(_cubePrefab, _spawnPoint.position, Quaternion.identity);
+        cube.Initialize(GenerateRandomColor());
+
+        return cube;
     }
 
     private CubeColor GenerateRandomColor()
