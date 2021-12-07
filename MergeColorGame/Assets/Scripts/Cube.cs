@@ -3,10 +3,10 @@ using UnityEngine;
 
 public enum CubeColor
 {
-    Red,
     Green,
     Blue,
-    Yellow
+    Yellow,
+    Red
 }
 
 public class Cube : MonoBehaviour
@@ -18,11 +18,9 @@ public class Cube : MonoBehaviour
     [SerializeField] private Renderer _renderer;
     [SerializeField] private CubeSpawner _cubeSpawner;
 
-
     private void Awake()
     {
         _rigidBody.isKinematic = true;
-        _cubeSpawner = GameObject.Find("Spawner").GetComponent<CubeSpawner>();
     }
 
     private Dictionary<CubeColor, Color> _colors = new Dictionary<CubeColor, Color>
@@ -39,18 +37,6 @@ public class Cube : MonoBehaviour
         SetMaterialColor(CubeColor);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out Cube cube) == true)
-        {
-            if (CubeColor == cube.CubeColor)
-            {
-                _cubeSpawner.SpawnCube();
-                Destroy(gameObject);
-            }
-        }
-    }
-
     private void SetMaterialColor(CubeColor color)
     {
         _renderer.material.color = _colors[color];
@@ -61,5 +47,8 @@ public class Cube : MonoBehaviour
         _rigidBody.isKinematic = false;
     }
 
-
+    public void DestroyBlyad()
+    {
+        Destroy(gameObject);
+    }
 }

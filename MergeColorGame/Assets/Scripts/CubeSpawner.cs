@@ -17,6 +17,6 @@ public class CubeSpawner : MonoBehaviour
     private CubeColor GenerateRandomColor()
     {
         Array colors = Enum.GetValues(typeof(CubeColor));
-        return (CubeColor)colors.GetValue(UnityEngine.Random.Range(0, colors.Length));
+        return (CubeColor)colors.GetValue(UnityEngine.Random.Range(0, colors.Length - 1));
     }
 }

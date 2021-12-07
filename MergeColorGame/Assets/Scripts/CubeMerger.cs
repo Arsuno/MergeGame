@@ -7,25 +7,31 @@ public class CubeMerger : MonoBehaviour
     [SerializeField] private Cube _cube;
     [SerializeField] private Cube _cubePrefab;
 
-    private Dictionary<CubeColor, Color> _colors = new Dictionary<CubeColor, Color>
+    private Dictionary<CubeColor, CubeColor> _mergeColors = new Dictionary<CubeColor, CubeColor>
     {
-        {CubeColor.Red, Color.red },
-        {CubeColor.Green, Color.green },
-        {CubeColor.Blue, Color.blue },
-        {CubeColor.Yellow, Color.yellow },
+        {CubeColor.Green, CubeColor.Blue },
+        {CubeColor.Blue, CubeColor.Yellow },
+        {CubeColor.Yellow, CubeColor.Red },
     };
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private bool CanMerge(Cube cube)
     {
-        if(collision.gameObject.TryGetComponent(out Cube cube) == true)
+        return cube.CubeColor == _cube.CubeColor && cube.CubeColor != CubeColor.Red && _cube.Speed >= cube.Speed;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Cube cube) == true)
         {
-            if (_cube.Speed >= cube.Speed)
+            if (CanMerge(cube) == true)
             {
                 Cube spawnedCube = Instantiate(_cubePrefab, _cube.transform.position, Quaternion.identity);
+                spawnedCube.Initialize(_mergeColors[_cube.CubeColor]);
+                _cube.DestroyBlyad();
+                cube.DestroyBlyad();
+                spawnedCube.Fall();
             }
         }
     }
-
-
 }
 
