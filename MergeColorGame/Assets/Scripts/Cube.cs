@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,13 +12,17 @@ public enum CubeColor
 public class Cube : MonoBehaviour
 {
     public CubeColor CubeColor { get; private set; }
+    public float Speed => _rigidBody.velocity.magnitude;
 
     [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private Renderer _renderer;
+    [SerializeField] private CubeSpawner _cubeSpawner;
+
 
     private void Awake()
     {
-        _rigidBody.isKinematic = true;    
+        _rigidBody.isKinematic = true;
+        _cubeSpawner = GameObject.Find("Spawner").GetComponent<CubeSpawner>();
     }
 
     private Dictionary<CubeColor, Color> _colors = new Dictionary<CubeColor, Color>
@@ -42,6 +45,7 @@ public class Cube : MonoBehaviour
         {
             if (CubeColor == cube.CubeColor)
             {
+                _cubeSpawner.SpawnCube();
                 Destroy(gameObject);
             }
         }
@@ -56,5 +60,6 @@ public class Cube : MonoBehaviour
     {
         _rigidBody.isKinematic = false;
     }
+
 
 }

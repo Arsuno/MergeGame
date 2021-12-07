@@ -31,7 +31,7 @@ public class PlayerInput : MonoBehaviour
 
     private IEnumerator SpawnCube()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         _cube = _cubeSpawner.SpawnCube();
     }
 }

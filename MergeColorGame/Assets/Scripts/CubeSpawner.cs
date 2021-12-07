@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
@@ -20,5 +19,4 @@ public class CubeSpawner : MonoBehaviour
         Array colors = Enum.GetValues(typeof(CubeColor));
         return (CubeColor)colors.GetValue(UnityEngine.Random.Range(0, colors.Length));
     }
-
 }
