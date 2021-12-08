@@ -16,12 +16,7 @@ public class Cube : MonoBehaviour
 
     [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private Renderer _renderer;
-    [SerializeField] private CubeSpawner _cubeSpawner;
-
-    private void Awake()
-    {
-        _rigidBody.isKinematic = true;
-    }
+    [SerializeField] private CubeHub _cubeSpawner;
 
     private Dictionary<CubeColor, Color> _colors = new Dictionary<CubeColor, Color>
     {
@@ -36,6 +31,13 @@ public class Cube : MonoBehaviour
         CubeColor = cubeColor;
         SetMaterialColor(CubeColor);
     }
+
+    #region MonoBehaviour
+    private void Awake()
+    {
+        _rigidBody.isKinematic = true;
+    }
+    #endregion
 
     private void SetMaterialColor(CubeColor color)
     {

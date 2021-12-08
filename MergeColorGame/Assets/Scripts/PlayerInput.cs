@@ -3,37 +3,30 @@ using System.Collections;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private CubeSpawner _cubeSpawner;
+    [SerializeField] private CubeHub _cubeHub;
     [SerializeField] private Camera _mainCamera;
     private const int LeftMouseButtonIndex = 0;
-    private Cube _cube;
-    private bool _isCubeEnable = false;
-
-    private void Start()
-    {
-        _cube = _cubeSpawner.SpawnCube();
-    }
 
     private void Update()
     {
-        if (Input.GetMouseButton(LeftMouseButtonIndex) == true && _isCubeEnable == true)
-        {
-            Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-            _cube.transform.position = new Vector3(mousePosition.x, _cube.transform.position.y, _cube.transform.position.z);
-        }
+        if (Input.GetMouseButton(LeftMouseButtonIndex) == true && _cubeHub.CubeAvailable == true)
+            UpdateCubePosition();
 
-        if (Input.GetMouseButtonUp(LeftMouseButtonIndex))
+        if (Input.GetMouseButtonUp(LeftMouseButtonIndex) == true)
         {
-            _cube.Fall();
-            _isCubeEnable = false;
-            StartCoroutine(SpawnCube());
+            if (_cubeHub.CubeAvailable == true)
+                FallCube();
         }
     }
 
-    private IEnumerator SpawnCube()
+    private void UpdateCubePosition()
     {
-        yield return new WaitForSeconds(2);
-        _cube = _cubeSpawner.SpawnCube();
-        _isCubeEnable = true;
+        Vector3 mousePosition = _mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        _cubeHub.Set—ubePosition(mousePosition.x);
+    }
+
+    private void FallCube()
+    {
+        _cubeHub.FallCube();
     }
 }

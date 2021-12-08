@@ -7,6 +7,7 @@ public class CubeMerger : MonoBehaviour
     [SerializeField] private Cube _cube;
     [SerializeField] private Cube _cubePrefab;
 
+    //TODO: другая ответсвенность
     private Dictionary<CubeColor, CubeColor> _mergeColors = new Dictionary<CubeColor, CubeColor>
     {
         {CubeColor.Green, CubeColor.Blue },
@@ -25,7 +26,7 @@ public class CubeMerger : MonoBehaviour
         {
             if (CanMerge(cube) == true)
             {
-                Cube spawnedCube = Instantiate(_cubePrefab, _cube.transform.position, Quaternion.identity);
+                Cube spawnedCube = Instantiate(_cubePrefab, cube.transform.position, cube.transform.rotation);
                 spawnedCube.Initialize(_mergeColors[_cube.CubeColor]);
                 _cube.DestroyBlyad();
                 cube.DestroyBlyad();

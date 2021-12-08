@@ -322,8 +322,10 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/VSSettingsProvider.ref.dll"
 "Assets/Scripts/Cube.cs"
+"Assets/Scripts/CubeHub.cs"
 "Assets/Scripts/CubeMerger.cs"
-"Assets/Scripts/CubeSpawner.cs"
+"Assets/Scripts/EasyModeCubeFactory.cs"
+"Assets/Scripts/ICubeFactory.cs"
 "Assets/Scripts/PlayerInput.cs"
 -langversion:8.0
 
